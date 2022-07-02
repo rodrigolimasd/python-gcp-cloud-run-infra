@@ -12,7 +12,6 @@ resource "google_artifact_registry_repository" "python-gcp-cloud" {
 
 # Deploy image to Cloud Run
 resource "google_cloud_run_service" "python-gcp-cloud" {
-  count = 1
   name = "python-gcp-cloud"
   location = "us-central1"
 
@@ -41,17 +40,16 @@ resource "google_cloud_run_service" "python-gcp-cloud" {
 }
 
 # Allow unauthenticated users to invoke the service
-# resource "google_cloud_run_service_iam_member" "run_all_users" {
-#   count = 1
-#   service  = google_cloud_run_service.python-gcp-cloud.name
-#   location = google_cloud_run_service.python-gcp-cloud.location
-#   role     = "roles/run.invoker"
-#   member   = "allUsers"
-# }
+resource "google_cloud_run_service_iam_member" "run_all_users" {
+  service  = google_cloud_run_service.python-gcp-cloud.name
+  location = google_cloud_run_service.python-gcp-cloud.location
+  role     = "roles/run.invoker"
+  member   = "allUsers"
+}
 
-# output "cloud_run_instance_url" {
-#   value = google_cloud_run_service.python-gcp-cloud.status[0].url
-# }
+output "cloud_run_instance_url" {
+  value = google_cloud_run_service.python-gcp-cloud.status[0].url
+}
 
 resource "google_sql_database_instance" "instance" {
     name = "mysql-db-instance"
