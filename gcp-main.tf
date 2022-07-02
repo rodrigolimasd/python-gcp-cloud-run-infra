@@ -15,7 +15,7 @@ resource "google_sql_database" "database" {
 }
 
 resource "google_sql_database_instance" "instance" {
-  name             = "mysql-db-instance"
+  name             = "python-db-instance"
   region           = "us-central1"
   database_version = "MYSQL_8_0"
   settings {
