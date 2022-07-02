@@ -19,6 +19,8 @@
 #   disable_on_destroy = false
 # }
 
+# Service Networking API
+
 # resource "time_sleep" "wait_30_seconds" {
 #   create_duration = "60s"
 #   depends_on = [
