@@ -50,3 +50,26 @@ resource "google_cloud_run_service_iam_member" "run_all_users" {
 output "cloud_run_instance_url" {
   value = google_cloud_run_service.python-gcp-cloud.status[0].url
 }
+
+resource "google_sql_database_instance" "instance" {
+    name = "mysql-db-instance"
+    database_version = "MYSQL_8_0"
+    region = "us-central1"
+    settings {
+        tier = "db-f1-micro"
+    }
+}
+
+resource "google_sql_database" "database" {
+    name = "pytask"
+    instance = "${google_sql_database_instance.instance.name}"
+    charset = "utf8"
+    collation = "utf8_general_ci"
+}
+
+resource "google_sql_user" "users" {
+    name = "root"
+    instance = "${google_sql_database_instance.instance.name}"
+    host = "%"
+    password = "mysqlpass"
+}
