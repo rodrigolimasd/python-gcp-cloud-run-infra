@@ -48,10 +48,9 @@ resource "google_cloud_run_service_iam_member" "run_all_users" {
   member   = "allUsers"
 }
 
-output "cloud_run_instance_url" {
-  count = 1
-  value = google_cloud_run_service.python-gcp-cloud.status[0].url
-}
+# output "cloud_run_instance_url" {
+#   value = google_cloud_run_service.python-gcp-cloud.status[0].url
+# }
 
 resource "google_sql_database_instance" "instance" {
     name = "mysql-db-instance"
