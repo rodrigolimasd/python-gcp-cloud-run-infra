@@ -25,13 +25,6 @@ resource "google_sql_database_instance" "instance" {
   deletion_protection  = "true"
 }
 
-resource "google_sql_database" "database" {
-    name = "pytask"
-    instance = "${google_sql_database_instance.instance.name}"
-    charset = "utf8"
-    collation = "utf8_general_ci"
-}
-
 resource "google_sql_user" "users" {
   name     = "python-tfuser"
   host     = "%"
