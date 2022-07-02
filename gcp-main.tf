@@ -12,6 +12,7 @@ resource "google_artifact_registry_repository" "python-gcp-cloud" {
 
 # Deploy image to Cloud Run
 resource "google_cloud_run_service" "python-gcp-cloud" {
+  count = 1
   name = "python-gcp-cloud"
   location = "us-central1"
 
